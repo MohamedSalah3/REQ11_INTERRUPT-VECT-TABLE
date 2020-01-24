@@ -1,14 +1,14 @@
-﻿/*
+/*
  * Interrupts.c
  *
  * Created: 21/01/2020 01:18:13 م
  *  Author: mo
  */
-
+#include "timers.h"
 #include "Interrupts.h"
-ptr_to_Fun INT0;
-ptr_to_Fun INT1;
-ptr_to_Fun INT2;
+ptr_to_Fun INT0_external_interrupt;
+ptr_to_Fun INT1_external_interrupt;
+ptr_to_Fun INT2_external_interrupt;
 ptr_to_Fun TIMER2COMP;
 ptr_to_Fun TIMER2OVF;
 ptr_to_Fun TIMER1CAPT;
@@ -16,12 +16,12 @@ ptr_to_Fun TIMER1COMPA;
 ptr_to_Fun TIMER1COMPB;
 ptr_to_Fun TIMER1OVF;
 ptr_to_Fun TIMER0COMP;
-ptr_to_Fun TIMER0OVF;
+ptr_to_Fun TIMER0OVF_INT=Timer_interrupt_routine;
 ptr_to_Fun SPI_STC;
 ptr_to_Fun USART_RXC;
 ptr_to_Fun USART_UDRE;
 ptr_to_Fun USART_TXC;
-ptr_to_Fun ADC;
+ptr_to_Fun ADC_INT;
 ptr_to_Fun EE_RDY;
 ptr_to_Fun ANA_COMP;
 ptr_to_Fun TWI_I2C;
@@ -40,21 +40,21 @@ CLEAR_BIT(SREG,7);
 void __vector_1(void) __attribute__((signal,__INTR_ATTRS));
 void __vector_1(void)
 {
-  INT0();
+  INT0_external_interrupt();
 }
 
 
 void __vector_2(void) __attribute__((signal,__INTR_ATTRS));
 void __vector_2(void)
 {
-  INT1();
+  INT1_external_interrupt();
 }
 
 
 void __vector_3(void) __attribute__((signal,__INTR_ATTRS));
 void __vector_3(void)
 {
-  INT2();
+  INT2_external_interrupt();
 }
 
 
@@ -104,7 +104,7 @@ void __vector_10(void)
 void __vector_11(void) __attribute__((signal,__INTR_ATTRS));
 void __vector_11(void)
 {
-  TIMER0OVF();
+  TIMER0OVF_INT();
 }
 
 void __vector_12(void) __attribute__((signal,__INTR_ATTRS));
@@ -134,7 +134,7 @@ void __vector_15(void)
 void __vector_16(void) __attribute__((signal,__INTR_ATTRS));
 void __vector_16(void)
 {
-  ADC();
+  ADC_INT();
 }
 
 void __vector_17(void) __attribute__((signal,__INTR_ATTRS));
