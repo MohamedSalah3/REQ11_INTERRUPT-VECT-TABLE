@@ -13,7 +13,7 @@
 #include "timers.h"
 #define SET_BIT(REG,BIT) (REG|=(1<<BIT))
 #define CLEAR_BIT(REG,BIT) (REG&=(~(1<<BIT)))
-
+typedef void (*ptr_to_Fun)(void);
 extern ptr_to_Fun INT0;
 extern ptr_to_Fun INT1;
 extern ptr_to_Fun INT2;
@@ -36,7 +36,6 @@ extern ptr_to_Fun TWI_I2C;
 extern ptr_to_Fun SPM_RDY;
 extern void G_interrupt_Enable(void);
 extern void G_interrupt_Disable(void);
-typedef void (*ptr_to_Fun)(void);
 extern volatile uint32_t u32_ovf_counter;
 
 #endif /* INTERRUPTS_H_ */
